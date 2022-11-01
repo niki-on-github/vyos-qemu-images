@@ -1,0 +1,27 @@
+name: Release qemu image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/niki-on-github/vyos-qemu-images:dev
+      options: --privileged -v /dev:/dev -v /tmp:/tmp
+    steps:
+      - name: Run docker entrypoint script
+        run: |
+          bash /entrypoint.sh
+
+      - name: Get filename
+        run: echo "IMAGE_NAME=$(ls /tmp | grep 'qcow2' | head -n 1)" >> $GITHUB_ENV
+
+      - name: Upload Build Asset
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /tmp/${{ env.IMAGE_NAME }}
+          asset_name: ${{ env.IMAGE_NAME }}
+          tag: ${{ github.ref }}
+          overwrite: true
