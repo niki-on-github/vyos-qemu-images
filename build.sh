@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if docker images | grep -q vyos-qemu-images; then
+if ! docker images | grep -q vyos-qemu-images; then
     docker build -t vyos-qemu-images .
 fi
 
