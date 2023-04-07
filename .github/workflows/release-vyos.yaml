@@ -31,4 +31,4 @@ jobs:
           artifacts: "/tmp/${{ env.IMAGE_NAME }}"
           artifactErrorsFailBuild: true
           body: |
-            My rolling VyOS cloud image qemu images
+            My rolling VyOS cloud init qemu images
