@@ -2,6 +2,8 @@ name: Release qemu image
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: 0 2 * * 1
 
 jobs:
   build:
@@ -14,8 +16,12 @@ jobs:
         run: |
           bash /entrypoint.sh
 
-      - name: Get filename
-        run: echo "IMAGE_NAME=$(ls /tmp | grep 'qcow2' | head -n 1)" >> $GITHUB_ENV
+      - name: Setup variables
+        id: vars
+        run: |
+          build_date=$(date +%Y%m%d%H%M)
+          echo "IMAGE_NAME=$(ls /tmp | grep 'qcow2' | head -n 1)" >> $GITHUB_ENV
+          echo "tag-name=$(ls /tmp | grep 'qcow2' | head -n 1)-${build_date}" >> "$GITHUB_OUTPUT"
 
       - name: Upload Build Asset
         uses: svenstaro/upload-release-action@v2
@@ -23,5 +29,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /tmp/${{ env.IMAGE_NAME }}
           asset_name: ${{ env.IMAGE_NAME }}
-          tag: ${{ github.ref }}
+          tag: "v${{ steps.vars.outputs.tag-name }}"
           overwrite: true
