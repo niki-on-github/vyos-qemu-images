@@ -27,6 +27,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /tmp/${{ env.IMAGE_NAME }}
-          asset_name: ${{ env.IMAGE_NAME }}
+          asset_name: "vyos-rolling-cloud-init.qcow2"
           tag: "${{ steps.vars.outputs.tag-name }}"
           overwrite: true
