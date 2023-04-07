@@ -19,9 +19,8 @@ jobs:
       - name: Setup variables
         id: vars
         run: |
-          build_date=$(date +%Y%m%d%H%M)
           echo "IMAGE_NAME=$(ls /tmp | grep 'qcow2' | head -n 1)" >> $GITHUB_ENV
-          echo "tag-name=$(ls /tmp | grep 'qcow2' | head -n 1)-${build_date}" >> "$GITHUB_OUTPUT"
+          echo "tag-name=$(ls /tmp | grep 'qcow2' | head -n 1)" >> "$GITHUB_OUTPUT"
 
       - name: Upload Build Asset
         uses: svenstaro/upload-release-action@v2
