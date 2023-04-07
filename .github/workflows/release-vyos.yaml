@@ -28,5 +28,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /tmp/${{ env.IMAGE_NAME }}
           asset_name: ${{ env.IMAGE_NAME }}
-          tag: "v${{ steps.vars.outputs.tag-name }}"
+          tag: "${{ steps.vars.outputs.tag-name }}"
           overwrite: true
