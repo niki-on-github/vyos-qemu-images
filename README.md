@@ -1,5 +1,8 @@
 # vyos qemu image
 
+> [!CAUTION]
+> Due to the poor treatment of their users i will not continue to use this product (ref https://blog.vyos.io/community-contributors-userbase-and-lts-builds)
+
 Use the Ansible playbooks from [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images) inside an docker image to build VyOS qemu image.
 
 ## Requirements
